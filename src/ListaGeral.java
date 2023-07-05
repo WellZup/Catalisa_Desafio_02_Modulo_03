@@ -11,10 +11,6 @@ public class ListaGeral {
 
 
 
-    // Função para verificar se um cliente já está cadastrado
-    private static boolean isClienteCadastrado(Cliente cliente) {
-        return clientes.contains(cliente);
-    }
     private static Cliente ClienteCadastrado(String nomeCliente) {
         for (Cliente cliente : clientes) {
             if (cliente.getNome().equalsIgnoreCase(nomeCliente)) {
@@ -26,12 +22,8 @@ public class ListaGeral {
 
 
 
-    // Função para verificar se um vendedor já está cadastrado
-    private static boolean isVendedorCadastrado(Vendedor vendedor) {
-        return vendedores.contains(vendedor);
-    }
 
-    private static Vendedor getVendedorCadastrado(String nomeVendedor) {
+    private static Vendedor VendedorNaoCadastrado(String nomeVendedor) {
         for (Vendedor vendedor : vendedores) {
             if (vendedor.getNome().equalsIgnoreCase(nomeVendedor)) {
                 return vendedor;
@@ -44,24 +36,87 @@ public class ListaGeral {
     public static void cadastrarCliente() {
         System.out.print("Nome do Cliente: ");
         String nomeCliente = entrada.nextLine();
-        System.out.print("CPF do Cliente: ");
-        String cpfCliente = entrada.nextLine();
-        System.out.print("Email do Cliente: ");
-        String emailCliente = entrada.nextLine();
+
+
+
+        String cpfCliente;
+        boolean cpfValido = false;
+        do {
+            System.out.print("CPF do Cliente (formato 000.000.000-00): ");
+            cpfCliente = entrada.nextLine();
+
+            if (!validarCPF(cpfCliente)) {
+                System.out.println("CPF inválido. Tente novamente.");
+            } else {
+                cpfValido = true;
+            }
+        } while (!cpfValido);
+
+
+        String emailCliente;
+        boolean emailValido = false;
+        do {
+            System.out.print("Email do Cliente: ");
+            emailCliente = entrada.nextLine();
+
+            if (!validarEmail(emailCliente)) {
+                System.out.println("Email inválido. Tente novamente.");
+            } else {
+                try {
+                    verificarDuplicidadeCliente(emailCliente);
+                    emailValido = true;
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        } while (!emailValido);
 
         Cliente novoCliente = new Cliente(nomeCliente, cpfCliente,emailCliente);
         clientes.add(novoCliente);
 
         System.out.println("Cliente cadastrado com sucesso.");
-    }
+        }
+
 
     public static void cadastrarVendedor() {
         System.out.print("Nome do Vendedor: ");
         String nomeVendedor = entrada.nextLine();
-        System.out.print("CPF do Vendedor: ");
-        String cpfVendedor = entrada.nextLine();
-        System.out.print("Email do Vendedor: ");
-        String emailVendedor = entrada.nextLine();
+
+
+        String cpfVendedor;
+        boolean cpfValido = false;
+        do {
+            System.out.print("CPF do Vendedor (formato 000.000.000-00): ");
+            cpfVendedor = entrada.nextLine();
+
+            if (!validarCPF(cpfVendedor)) {
+                System.out.println("CPF inválido. Tente novamente.");
+            } else {
+                cpfValido = true;
+            }
+        } while (!cpfValido);
+
+
+
+        String emailVendedor;
+        boolean emailValido = false;
+        do {
+            System.out.print("Email do Vendedor: ");
+            emailVendedor = entrada.nextLine();
+
+            if (!validarEmail(emailVendedor)) {
+                System.out.println("Email inválido. Tente novamente.");
+            } else {
+                try {
+                    verificarDuplicidadeVendedor(emailVendedor);
+                    emailValido = true;
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        } while (!emailValido);
+
+
 
         Vendedor novoVendedor = new Vendedor(nomeVendedor,cpfVendedor,emailVendedor);
         vendedores.add(novoVendedor);
@@ -84,7 +139,7 @@ public class ListaGeral {
         System.out.print("Nome do Vendedor: ");
         String nomeVendedor = entrada.nextLine();
 
-        Vendedor vendedor = getVendedorCadastrado(nomeVendedor);
+        Vendedor vendedor = VendedorNaoCadastrado(nomeVendedor);
         if (vendedor == null) {
             System.out.println("Vendedor não cadastrado.");
             return;
@@ -133,6 +188,36 @@ public class ListaGeral {
             System.out.println("-----------------------");
         }
     }
+
+    public static void verificarDuplicidadeCliente(String email) throws Exception {
+        for (Cliente cliente: clientes) {
+            if (cliente.getEmail().equalsIgnoreCase(email)) {
+                throw new Exception("Email já cadastrado. Digite outro email válido.");
+            }
+        }
+    }
+
+    public static void verificarDuplicidadeVendedor(String email) throws Exception {
+        for (Vendedor vendedor : vendedores) {
+            if (vendedor.getEmail().equalsIgnoreCase(email)) {
+                throw new Exception("Email já cadastrado. Digite outro email válido.");
+            }
+        }
+    }
+
+    public static boolean validarCPF(String cpf) {
+        String regex = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}";
+        return cpf.matches(regex);
+    }
+
+
+    private static boolean validarEmail(String email) {
+        return email.contains("@");
+    }
+
+
+
+
 }
 
 

@@ -1,8 +1,8 @@
 public class Venda {
-    private Cliente cliente;
-    private Vendedor vendedor;
-    private double valor;
-    private String dataRegistro;
+    private final Cliente cliente;
+    private final Vendedor vendedor;
+    private final double valor;
+    private final String dataRegistro;
 
     public Venda(Cliente cliente, Vendedor vendedor, double valor, String dataRegistro) {
         this.cliente = cliente;
@@ -15,31 +15,22 @@ public class Venda {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
+
 
     public Vendedor getVendedor() {
         return vendedor;
     }
 
-    public void setVendedor(Vendedor vendedor) {
-        this.vendedor = vendedor;
-    }
+
 
     public double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
+
 
     public String getDataRegistro() {
         return dataRegistro;
     }
 
-    public void setDataRegistro(String dataRegistro) {
-        this.dataRegistro = dataRegistro;
-    }
 }
