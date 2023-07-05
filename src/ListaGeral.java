@@ -15,13 +15,7 @@ public class ListaGeral {
     private static boolean isClienteCadastrado(Cliente cliente) {
         return clientes.contains(cliente);
     }
-
-    // Função para verificar se um vendedor já está cadastrado
-    private static boolean isVendedorCadastrado(Vendedor vendedor) {
-        return vendedores.contains(vendedor);
-    }
-
-    private static Cliente getClienteCadastrado(String nomeCliente) {
+    private static Cliente ClienteCadastrado(String nomeCliente) {
         for (Cliente cliente : clientes) {
             if (cliente.getNome().equalsIgnoreCase(nomeCliente)) {
                 return cliente;
@@ -30,7 +24,13 @@ public class ListaGeral {
         return null;
     }
 
-    // Função para obter um vendedor cadastrado pelo nome
+
+
+    // Função para verificar se um vendedor já está cadastrado
+    private static boolean isVendedorCadastrado(Vendedor vendedor) {
+        return vendedores.contains(vendedor);
+    }
+
     private static Vendedor getVendedorCadastrado(String nomeVendedor) {
         for (Vendedor vendedor : vendedores) {
             if (vendedor.getNome().equalsIgnoreCase(nomeVendedor)) {
@@ -73,7 +73,7 @@ public class ListaGeral {
         System.out.print("Nome do Cliente: ");
         String nomeCliente = entrada.nextLine();
 
-        Cliente cliente = getClienteCadastrado(nomeCliente);
+        Cliente cliente = ClienteCadastrado(nomeCliente);
         if (cliente == null) {
             System.out.println("Cliente não cadastrado.");
             return;
@@ -107,6 +107,7 @@ public class ListaGeral {
     public static void listarInformacoes() {
         System.out.println("Vendas Registradas:");
         for (Venda venda : vendas) {
+            System.out.println("-----------------------");
             System.out.println("Cliente: " + venda.getCliente().getNome());
             System.out.println("Vendedor: " + venda.getVendedor().getNome());
             System.out.println("Valor: " + venda.getValor());
@@ -116,6 +117,7 @@ public class ListaGeral {
 
         System.out.println("Vendedores Cadastrados:");
         for (Vendedor vendedor : vendedores) {
+            System.out.println("-----------------------");
             System.out.println("Nome: " + vendedor.getNome());
             System.out.println("CPF: " + vendedor.getCpf());
             System.out.println("Email: " + vendedor.getEmail());
@@ -124,6 +126,7 @@ public class ListaGeral {
 
         System.out.println("Clientes Cadastrados:");
         for (Cliente cliente : clientes) {
+            System.out.println("-----------------------");
             System.out.println("Nome: " + cliente.getNome());
             System.out.println("CPF: " + cliente.getCpf());
             System.out.println("Email: " + cliente.getEmail());
