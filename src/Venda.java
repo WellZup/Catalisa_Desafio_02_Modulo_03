@@ -15,6 +15,10 @@ public class Venda {
         return cliente;
     }
 
+    public Cliente setCliente() {
+        return cliente;
+    }
+
 
 
     public Vendedor getVendedor() {

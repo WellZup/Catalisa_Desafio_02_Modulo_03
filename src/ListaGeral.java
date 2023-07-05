@@ -216,6 +216,29 @@ public class ListaGeral {
     }
 
 
+    public static void pesquisarComprasPorCliente() {
+        System.out.print("Digite o CPF do Cliente: ");
+        String cpfCliente = entrada.nextLine();
+        System.out.println("Compras do Cliente (CPF: " + cpfCliente + "):");
+        for (Venda venda : vendas) {
+            if (venda.getCliente().getCpf().equals(cpfCliente)) {
+                System.out.println(vendas);
+            }
+        }
+    }
+
+    public static void pesquisarVendasPorVendedor() {
+        System.out.print("Digite o e-mail do Vendedor: ");
+        String emailVendedor = entrada.nextLine();
+        System.out.println("Vendas do Vendedor (Email: " + emailVendedor + "):");
+        for (Venda venda : vendas) {
+            if (venda.getVendedor().getEmail().equals(emailVendedor)) {
+                System.out.println(vendas);
+            }
+        }
+    }
+
+
 
 
 }
